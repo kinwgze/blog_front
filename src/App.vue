@@ -1,11 +1,17 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/visit">VisitorSystem</router-link>
+    <router-link to="/">
+      <el-button type="primary">home</el-button>
+    </router-link> |
+    <router-link to="/visit">
+      <el-button type="primary">访客申请</el-button>
+    </router-link>
   </nav>
   <router-view/>
 </template>
 
+<script>
+</script>
 <style lang="less">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -19,12 +25,7 @@ nav {
   padding: 30px;
 
   a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+    text-decoration: none;
   }
 }
 </style>
