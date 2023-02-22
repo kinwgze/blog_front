@@ -9,7 +9,7 @@ const routes = [
   {
     path: '/visit',
     name: 'visit',
-    component: () => import('../views/VisitorSystem.vue')
+    component: () => import('../components/VisitorSystem.vue')
   }
 ]
 
