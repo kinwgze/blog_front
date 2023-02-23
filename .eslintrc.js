@@ -26,6 +26,13 @@ module.exports = {
     'operator-assignment': 0,
     'import/no-extraneous-dependencies': 0,
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    semi: 0,
+    'no-trailing-spaces': ['off',
+      {
+        skipBlankLines: true,
+        ignoreComments: true
+      }
+    ]
   }
 }

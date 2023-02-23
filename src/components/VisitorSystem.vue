@@ -11,7 +11,7 @@
     <el-form-item  label="申请时间">
         <el-date-picker
           style="width: 300px"
-          v-model="form.date1"
+          v-model="form.startTimeStamp"
           placeholder="Pick a date"
           type="datetime"
           value-format="YYYY-MM-DD HH:mm"
@@ -31,6 +31,7 @@
 
 <script>
 import { reactive } from 'vue'
+import { post } from '@/util/axios'
 
 export default {
   name: 'VisitorSystem',
@@ -38,16 +39,24 @@ export default {
     const form = reactive({
       guestName: '',
       phoneNumber: '',
-      date1: '',
-      date2: '',
+      startTimeStamp: '',
       note: '',
       timeDefaultShow: new Date()
     })
 
     const submit = async () => {
-      console.log(form)
+      const data = [];
+      data.guestName = form.guestName;
+      data.phoneNumber = form.phoneNumber;
+      data.startTimeStamp = form.startTimeStamp;
+      data.note = form.note;
 
-      // 在这里进行上传（axios、ajax）
+      const submitForm = data => post('/guard/system/requestForPermit', data).then((result) => {
+        console.log(result);
+      }).catch(() => {
+        console.log('error');
+      })
+      await submitForm(data)
     }
     return { form, submit }
   }
