@@ -11,7 +11,7 @@
     <el-form-item  label="申请时间">
         <el-date-picker
           style="width: 300px"
-          v-model="form.startTimeStamp"
+          v-model="form.startTime"
           placeholder="Pick a date"
           type="datetime"
           value-format="YYYY-MM-DD HH:mm"
@@ -39,16 +39,16 @@ export default {
     const form = reactive({
       guestName: '',
       phoneNumber: '',
-      startTimeStamp: '',
+      startTime: '',
       note: '',
       timeDefaultShow: new Date()
     })
 
     const submit = async () => {
-      const data = [];
+      const data = {};
       data.guestName = form.guestName;
-      data.phoneNumber = form.phoneNumber;
-      data.startTimeStamp = form.startTimeStamp;
+      data.phoneNumber = parseInt(form.phoneNumber);
+      data.startTime = form.startTime;
       data.note = form.note;
 
       const submitForm = data => post('/guard/system/requestForPermit', data).then((result) => {
@@ -56,6 +56,7 @@ export default {
       }).catch(() => {
         console.log('error');
       })
+
       await submitForm(data)
     }
     return { form, submit }
