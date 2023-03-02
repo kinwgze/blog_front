@@ -32,6 +32,7 @@
 <script>
 import { reactive } from 'vue'
 import { post } from '@/util/axios'
+import { ElMessageBox } from 'element-plus';
 
 export default {
   name: 'VisitorSystem',
@@ -44,20 +45,28 @@ export default {
       timeDefaultShow: new Date()
     })
 
+    // post提交&结果处理
+    const submitForm = data => post('/guard/system/requestForPermit', data).then((result) => {
+      if (result.state === 0) {
+        const message = '您的申请码为<strong>' + result.data.checkCode + '</strong>，请仔细保管！';
+        ElMessageBox.alert(message, '申请成功', {
+          dangerouslyUseHTMLString: true
+        });
+      } else if (result.state === 1) {
+        ElMessageBox.alert('请稍后重试', '申请失败');
+      }
+    }).catch(() => {
+      ElMessageBox.alert('请稍后重试', '申请失败');
+    })
+
+    // 提交前处理
     const submit = async () => {
       const data = {};
       data.guestName = form.guestName;
       data.phoneNumber = parseInt(form.phoneNumber);
       data.startTime = form.startTime;
       data.note = form.note;
-
-      const submitForm = data => post('/guard/system/requestForPermit', data).then((result) => {
-        console.log(result);
-      }).catch(() => {
-        console.log('error');
-      })
-
-      await submitForm(data)
+      await submitForm(data);
     }
     return { form, submit }
   }
