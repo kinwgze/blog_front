@@ -1,7 +1,11 @@
 <template>
-  <el-form :model="form" label-width="120px">
-    <el-form-item label="用户名">
-      <el-input v-model.trim="form.guestName" style="width:300px" maxlength="120">
+  <el-form
+    :model="form"
+    label-width="120px"
+    :rules="rules"
+  >
+    <el-form-item label="用户名" prop="guestName">
+      <el-input v-model.trim="form.guestName" style="width:300px">
       </el-input>
     </el-form-item>
     <el-form-item label="手机号">
@@ -24,7 +28,7 @@
       </el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="submit">提交</el-button>
+      <el-button type="primary" @click="submit()">提交</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -43,6 +47,14 @@ export default {
       startTime: '',
       note: '',
       timeDefaultShow: new Date()
+    })
+
+    const rules = reactive({
+      guestName: [
+        { required: true, message: '请输入你的姓名', trigger: ['blur', 'change'] },
+        { min: 2, max: 10, message: '长度要求为2-10', trigger: ['blur', 'change'] },
+        { pattern: '^[a-zA-Z\u4e00-\u9fa5]+$', message: '只允许输入中文和英文', trigger: ['blur', 'change'] }
+      ]
     })
 
     // post提交&结果处理
@@ -68,7 +80,7 @@ export default {
       data.note = form.note;
       await submitForm(data);
     }
-    return { form, submit }
+    return { form, submit, rules }
   }
 }
 </script>
