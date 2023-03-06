@@ -8,7 +8,7 @@
       <el-input v-model.trim="form.guestName" style="width:300px">
       </el-input>
     </el-form-item>
-    <el-form-item label="手机号">
+    <el-form-item label="手机号" prop="phoneNumber">
       <el-input v-model="form.phoneNumber" style="width:300px" maxlength="60">
       </el-input>
     </el-form-item>
@@ -54,6 +54,10 @@ export default {
         { required: true, message: '请输入你的姓名', trigger: ['blur', 'change'] },
         { min: 2, max: 10, message: '长度要求为2-10', trigger: ['blur', 'change'] },
         { pattern: '^[a-zA-Z\u4e00-\u9fa5]+$', message: '只允许输入中文和英文', trigger: ['blur', 'change'] }
+      ],
+      phoneNumber: [
+        { required: true, message: '请输入你的手机号', trigger: ['blur', 'change'] },
+        { pattern: '^1[3-9]\\d{9}$', message: '手机号格式错误', trigger: ['blur', 'change'] }
       ]
     })
 
