@@ -8,4 +8,10 @@
 <!--    </router-link>-->
 <!--  </nav>-->
   <router-view/>
+  <router-view>
+    <copy-right>皖ICP备2022005213号-1</copy-right>
+  </router-view>
 </template>
+<script setup>
+import CopyRight from '@/components/CopyRight.vue';
+</script>
